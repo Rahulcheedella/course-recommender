@@ -26,7 +26,7 @@ export default function MyLearning() {
   return (
     <div>
       <div style={{ marginBottom: '2rem' }}>
-        <h1 style={{ fontSize: '2rem', fontWeight: 800, color: 'white', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+        <h1 style={{ fontSize: '2rem', fontWeight: 800, color: "steelblue", display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
           <BookOpen size={28} color="#818cf8" /> My Active Enrollments
         </h1>
         <p style={{ color: 'var(--text-muted)' }}>

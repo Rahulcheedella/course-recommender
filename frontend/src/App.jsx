@@ -33,6 +33,22 @@ export default function App() {
           </Routes>
         </main>
 
+        {/* Footer */}
+        <footer style={{
+          borderTop: '1px solid #E2E8F0',
+          background: '#FFFFFF',
+          padding: '1.25rem 1.5rem',
+          textAlign: 'center',
+          fontSize: '0.875rem',
+          color: '#64748B',
+          fontFamily: "'Inter', system-ui, sans-serif",
+          letterSpacing: '0.01em'
+        }}>
+          <span style={{ fontWeight: 600, color: '#334155' }}>Rahul Cheedella</span>
+          <span style={{ margin: '0 0.5rem', color: '#CBD5E1' }}>|</span>
+          <span>2026</span>
+        </footer>
+
         {/* Global Floating AI Learning Assistant Chatbot */}
         <Chatbot />
       </div>

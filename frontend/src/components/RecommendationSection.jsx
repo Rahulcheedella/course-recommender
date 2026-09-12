@@ -14,7 +14,7 @@ export default function RecommendationSection({ title, subtitle, icon: Icon, cou
     <section style={{ marginBottom: '2.5rem' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.25rem', flexWrap: 'wrap' }}>
         {Icon && <Icon size={22} style={{ color: '#818cf8' }} />}
-        <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#f8fafc' }}>
+        <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'black' }}>
           {title}
         </h2>
         {badge && (

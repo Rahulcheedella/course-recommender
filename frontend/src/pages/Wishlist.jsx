@@ -26,7 +26,7 @@ export default function Wishlist() {
   return (
     <div>
       <div style={{ marginBottom: '2rem' }}>
-        <h1 style={{ fontSize: '2rem', fontWeight: 800, color: 'white', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+        <h1 style={{ fontSize: '2rem', fontWeight: 800, color: "steelblue", display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
           <Heart size={28} color="#ef4444" fill="#ef4444" /> Saved Wishlist Courses
         </h1>
         <p style={{ color: 'var(--text-muted)' }}>

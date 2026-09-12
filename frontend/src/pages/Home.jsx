@@ -200,7 +200,7 @@ export default function Home() {
             <section style={{ marginBottom: '2.5rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.25rem' }}>
                 <History size={22} style={{ color: '#f59e0b' }} />
-                <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#f8fafc' }}>
+                <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'black' }}>
                   Based on Your Recent Activity
                 </h2>
                 <span style={{

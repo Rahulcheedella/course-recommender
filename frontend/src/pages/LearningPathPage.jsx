@@ -38,7 +38,7 @@ export default function LearningPathPage() {
         <div className="badge badge-primary" style={{ marginBottom: '0.5rem' }}>
           <Sparkles size={12} style={{ marginRight: '0.3rem' }} /> Knowledge Graph Skill Tree Generator
         </div>
-        <h1 style={{ fontSize: '2.2rem', fontWeight: 800, color: 'white' }}>
+        <h1 style={{ fontSize: '2.2rem', fontWeight: 800, color: 'steelBlue' }}>
           Structured Career Learning Paths
         </h1>
         <p style={{ color: 'var(--text-muted)', fontSize: '1rem', marginTop: '0.25rem' }}>

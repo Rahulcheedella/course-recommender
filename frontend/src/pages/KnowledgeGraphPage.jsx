@@ -29,7 +29,7 @@ export default function KnowledgeGraphPage() {
         <div className="badge badge-primary" style={{ marginBottom: '0.5rem' }}>
           <Database size={12} style={{ marginRight: '0.3rem' }} /> Neo4j Graph Traversal Engine
         </div>
-        <h1 style={{ fontSize: '2.2rem', fontWeight: 800, color: 'white', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+        <h1 style={{ fontSize: '2.2rem', fontWeight: 800, color: "steelblue", display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
           <Network size={32} color="#818cf8" /> Knowledge Graph Exploration
         </h1>
         <p style={{ color: 'var(--text-muted)', fontSize: '1rem', marginTop: '0.25rem' }}>
