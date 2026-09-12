@@ -1,97 +1,111 @@
 /* ═══════════════════════════════════════════════════════════════
-   AI KNOWLEDGE GRAPH — PREMIUM LIGHT MODE DESIGN SYSTEM
-   Google Fonts: Inter + Outfit loaded via index.html
+   KNOWLEDGE GRAPH AI — PROFESSIONAL LIGHT-MODE DESIGN SYSTEM
+   Version 3  |  CSS-only polish pass
    ═══════════════════════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Outfit:wght@600;700;800&display=swap');
 
+/* ══════════════════════════════════════════════════════════════
+   1. DESIGN TOKENS
+   ══════════════════════════════════════════════════════════════ */
 :root {
-  --font-primary:  'Inter',  system-ui, -apple-system, sans-serif;
-  --font-heading:  'Outfit', 'Inter', sans-serif;
+  /* Fonts */
+  --font-primary: 'Inter',  system-ui, -apple-system, sans-serif;
+  --font-heading: 'Outfit', 'Inter', sans-serif;
 
-  /* Page surfaces (light) */
-  --bg-page:         #F8FAFC;
-  --bg-card:         #FFFFFF;
-  --bg-surface:      #F1F5F9;
-  --bg-glass:        rgba(255, 255, 255, 0.88);
+  /* ── Page surfaces (light) ── */
+  --bg-page:    #F7F9FC;
+  --bg-card:    #FFFFFF;
+  --bg-surface: #F1F5F9;
+  --bg-glass:   rgba(255, 255, 255, 0.90);
 
-  /* Course-card dark surfaces */
-  --card-dark:       #111827;    /* near-black — card background */
-  --card-dark-hover: #1A2235;    /* slightly lighter on hover     */
-  --card-dark-border:rgba(255, 255, 255, 0.10);
-  --card-dark-sep:   rgba(255, 255, 255, 0.08);
-
-  /* Borders */
-  --border-color:  #E2E8F0;
-  --border-focus:  #4F46E5;
-
-  /* Text — page level */
-  --text-main:     #0F172A;
-  --text-sub:      #475569;
-  --text-muted:    #64748B;
-  --text-dark:     #0F172A;
-
-  /* Text — inside dark cards */
-  --card-text-primary:   #FFFFFF;
+  /* ── Course-card dark surfaces ── */
+  --card-dark:         #0F172A;   /* deep navy-black */
+  --card-dark-border:  rgba(255, 255, 255, 0.09);
+  --card-text-primary: #F8FAFC;
   --card-text-secondary: #CBD5E1;
-  --card-text-muted:     #94A3B8;
+  --card-text-muted:   #94A3B8;
 
-  /* Brand / Accent */
-  --primary:       #4F46E5;
-  --primary-hover: #4338CA;
-  --primary-light: #EEF2FF;
-  --primary-ring:  rgba(79, 70, 229, 0.10);
+  /* ── Borders ── */
+  --border-color: #E2E8F0;
+  --border-light: #F1F5F9;
 
-  --secondary:     #0891B2;          /* cyan */
-  --accent:        #D97706;          /* amber */
-  --success:       #16A34A;
-  --purple:        #7C3AED;
-  --error:         #DC2626;
+  /* ── Text — page level ── */
+  --text-main:  #0F172A;
+  --text-sub:   #334155;
+  --text-muted: #64748B;
 
-  /* Radii */
-  --radius-sm:     8px;
-  --radius-md:     12px;
-  --radius-lg:     16px;
+  /* ── Brand accents ── */
+  --primary:        #4F46E5;   /* indigo */
+  --primary-hover:  #4338CA;
+  --primary-light:  #EEF2FF;
+  --primary-ring:   rgba(79, 70, 229, 0.12);
 
-  /* Shadows — page-level (light) */
-  --shadow-xs:   0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
-  --shadow-sm:   0 4px 14px rgba(15, 23, 42, 0.06);
-  --shadow-md:   0 10px 28px rgba(15, 23, 42, 0.09);
-  --shadow-lg:   0 18px 40px rgba(15, 23, 42, 0.12);
-  --shadow-glow: 0 6px 20px rgba(79, 70, 229, 0.18);
+  --secondary: #0891B2;        /* cyan  */
+  --accent:    #D97706;        /* amber */
+  --success:   #16A34A;
+  --purple:    #7C3AED;
+  --error:     #DC2626;
 
-  /* Shadows — dark card */
-  --card-shadow:       0 4px 16px rgba(0, 0, 0, 0.35);
-  --card-shadow-hover: 0 14px 34px rgba(0, 0, 0, 0.48);
+  /* ── Radii ── */
+  --radius-xs: 6px;
+  --radius-sm: 9px;
+  --radius-md: 13px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
 
-  /* Global transition */
-  --transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-fast: all 0.15s ease;
-  --transition-slow: all 0.30s ease;
+  /* ── Shadows — page level ── */
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.07),
+               0 1px 3px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08),
+               0 2px 8px  rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 20px 48px rgba(15, 23, 42, 0.10),
+               0 4px 12px  rgba(15, 23, 42, 0.05);
+
+  /* ── Shadows — dark cards ── */
+  --card-shadow:       0 4px 18px rgba(0, 0, 0, 0.32),
+                       0 1px 4px  rgba(0, 0, 0, 0.20);
+  --card-shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.46),
+                       0 4px 12px rgba(0, 0, 0, 0.24);
+
+  /* ── Glow ── */
+  --glow-primary: 0 6px 22px rgba(79, 70, 229, 0.22);
+
+  /* ── Transitions ── */
+  --ease-out:    cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --t-fast:      0.15s ease;
+  --t-base:      0.22s var(--ease-out);
+  --t-slow:      0.35s var(--ease-out);
 }
 
-/* ── 2. RESET ─────────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   2. RESET & BASE
+   ══════════════════════════════════════════════════════════════ */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* ── 3. BASE ──────────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
+  font-size: 16px;
 }
 
 body {
   font-family: var(--font-primary);
   background-color: var(--bg-page);
-  /* Very subtle warm-cool gradient that stays almost white */
+  /* Calm, barely-visible warm radial lights — do NOT compete with cards */
   background-image:
-    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(79, 70, 229, 0.04) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% 110%, rgba(8, 145, 178, 0.03) 0%, transparent 60%);
+    radial-gradient(ellipse 70% 40% at 15% 0%,
+      rgba(79, 70, 229, 0.035) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 35% at 85% 100%,
+      rgba(8, 145, 178, 0.025) 0%, transparent 65%);
   background-attachment: fixed;
   color: var(--text-main);
-  line-height: 1.6;
+  line-height: 1.65;
   min-height: 100vh;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -100,10 +114,13 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   font-weight: 700;
   color: var(--text-main);
+  line-height: 1.25;
 }
+
+p { line-height: 1.65; }
 
 a {
   color: inherit;
@@ -117,25 +134,25 @@ button {
   outline: none;
 }
 
-img {
-  display: block;
-  max-width: 100%;
-}
+img { display: block; max-width: 100%; }
 
-/* Accessible keyboard focus ring */
 :focus-visible {
-  outline: 2px solid #6366F1;
-  outline-offset: 2px;
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
   border-radius: 4px;
 }
 
-/* ── 4. SCROLLBARS ────────────────────────────────────────────── */
-::-webkit-scrollbar              { width: 6px; height: 6px; }
-::-webkit-scrollbar-track        { background: #F1F5F9; }
+/* ══════════════════════════════════════════════════════════════
+   3. SCROLLBARS
+   ══════════════════════════════════════════════════════════════ */
+::-webkit-scrollbar              { width: 5px; height: 5px; }
+::-webkit-scrollbar-track        { background: var(--border-light); }
 ::-webkit-scrollbar-thumb        { background: #CBD5E1; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover  { background: #94A3B8; }
 
-/* ── 5. LAYOUT ────────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   4. LAYOUT
+   ══════════════════════════════════════════════════════════════ */
 .app-container {
   min-height: 100vh;
   display: flex;
@@ -144,226 +161,219 @@ img {
 
 .main-content {
   flex: 1;
-  max-width: 1280px;
+  max-width: 1300px;
   width: 100%;
   margin: 0 auto;
-  padding: 2rem 1.5rem 6rem;
+  padding: 2.25rem 1.75rem 7rem;
 }
 
-/* ── 6. GLASS PANEL → LIGHT SURFACE CARD ─────────────────────── */
-/* Used heavily as a generic surface container across the app */
+/* ══════════════════════════════════════════════════════════════
+   5. GLASS PANEL  (generic surface used across the app)
+   ══════════════════════════════════════════════════════════════ */
 .glass-panel {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
+  background:    var(--bg-card);
+  border:        1px solid var(--border-color);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
+  box-shadow:    var(--shadow-sm);
 }
 
-/* ── 7. NAVBAR ────────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   6. NAVBAR
+   ══════════════════════════════════════════════════════════════ */
 nav {
-  background: rgba(255, 255, 255, 0.92) !important;
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
-  border-bottom: 1px solid var(--border-color) !important;
-  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.05) !important;
+  background:      rgba(255, 255, 255, 0.94) !important;
+  backdrop-filter: saturate(180%) blur(16px) !important;
+  -webkit-backdrop-filter: saturate(180%) blur(16px) !important;
+  border-bottom:   1px solid var(--border-color) !important;
+  box-shadow:      0 1px 0 rgba(15,23,42,0.04),
+                   0 4px 16px rgba(15,23,42,0.04) !important;
 }
 
 nav a {
-  color: var(--text-muted) !important;
-  transition: color 0.18s ease;
+  color:      var(--text-muted) !important;
+  font-weight: 500;
+  transition: color var(--t-fast), background var(--t-fast) !important;
 }
 
-nav a:hover {
-  color: var(--text-main) !important;
-}
+nav a:hover { color: var(--text-main) !important; }
 
-/* Logo brand text */
+/* Logo brand word — strip the dark gradient, use dark text */
 nav a span[style*="background: linear-gradient"] {
-  background: unset !important;
-  -webkit-background-clip: unset !important;
-  -webkit-text-fill-color: var(--text-main) !important;
-  color: var(--text-main) !important;
+  background:               unset !important;
+  -webkit-background-clip:  unset !important;
+  -webkit-text-fill-color:  var(--text-main) !important;
+  color:       var(--text-main) !important;
   font-weight: 800 !important;
+  font-size:   1.2rem !important;
+  letter-spacing: -0.03em !important;
 }
 
-/* Logo icon wrapper */
+/* Logo icon box */
 nav div[style*="linear-gradient(135deg, #6366f1"] {
-  background: linear-gradient(135deg, #4F46E5, #7C3AED) !important;
-  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.20) !important;
+  background: linear-gradient(135deg, var(--primary), var(--purple)) !important;
+  box-shadow: 0 3px 10px rgba(79, 70, 229, 0.22) !important;
 }
 
-/* Logo subtitle (AI Learning Recommender) */
+/* Logo subtitle */
 nav a > div > span:last-child {
-  color: var(--secondary) !important;
+  color:          var(--secondary) !important;
+  font-size:      0.68rem !important;
+  font-weight:    600 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
 }
 
-/* User profile pill */
+/* Profile pill */
 nav a[href="/profile"] {
-  background: #F8FAFC !important;
-  border: 1px solid var(--border-color) !important;
-  color: var(--text-sub) !important;
-  border-radius: 20px;
-  transition: var(--transition);
+  background:    #F8FAFC !important;
+  border:        1px solid var(--border-color) !important;
+  border-radius: 22px !important;
+  color:         var(--text-sub) !important;
+  transition:    background var(--t-fast),
+                 border-color var(--t-fast),
+                 box-shadow   var(--t-fast) !important;
 }
 
 nav a[href="/profile"]:hover {
-  background: var(--primary-light) !important;
+  background:   var(--primary-light) !important;
   border-color: #C7D2FE !important;
+  box-shadow:   0 0 0 3px rgba(79,70,229,0.08) !important;
 }
 
-/* ── 8. BUTTONS ───────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   7. BUTTONS
+   ══════════════════════════════════════════════════════════════ */
 .btn {
-  display: inline-flex;
+  display:     inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.65rem 1.25rem;
-  border-radius: 10px;
+  gap:         0.45rem;
+  padding:     0.6rem 1.2rem;
+  border-radius: var(--radius-sm);
   font-weight: 600;
-  font-size: 0.925rem;
+  font-size:   0.9rem;
+  letter-spacing: 0.01em;
   transition:
-    background-color 0.18s ease,
-    box-shadow       0.18s ease,
-    transform        0.15s ease,
-    border-color     0.18s ease,
-    color            0.15s ease;
+    background-color var(--t-fast),
+    box-shadow       var(--t-fast),
+    transform        var(--t-fast),
+    border-color     var(--t-fast),
+    color            var(--t-fast);
   border: none;
   cursor: pointer;
+  white-space: nowrap;
 }
 
-.btn:active { transform: scale(0.97); }
+.btn:active  { transform: scale(0.97) !important; }
 
 .btn-primary {
   background: var(--primary);
-  color: #FFFFFF;
-  box-shadow: var(--shadow-glow);
+  color:      #FFFFFF;
+  box-shadow: var(--glow-primary);
 }
 
 .btn-primary:hover {
   background: var(--primary-hover);
-  box-shadow: 0 8px 22px rgba(79, 70, 229, 0.30);
-  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(79, 70, 229, 0.32);
+  transform:  translateY(-2px);
 }
 
 .btn-secondary {
   background: #FFFFFF;
-  color: #334155;
-  border: 1px solid var(--border-color);
+  color:      var(--text-sub);
+  border:     1px solid var(--border-color);
   box-shadow: var(--shadow-xs);
 }
 
 .btn-secondary:hover {
-  background: #F8FAFC;
+  background:   #F8FAFC;
   border-color: #A5B4FC;
-  color: var(--primary);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-sm);
+  color:        var(--primary);
+  transform:    translateY(-1px);
+  box-shadow:   var(--shadow-sm);
 }
 
 .btn-outline {
-  border: 1px solid var(--primary);
-  color: var(--primary);
+  border:     1px solid var(--primary);
+  color:      var(--primary);
   background: transparent;
 }
 
 .btn-outline:hover {
-  background: var(--primary-light);
+  background:   var(--primary-light);
   border-color: var(--primary);
 }
 
-/* ── 9. BADGES ────────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   8. BADGES
+   ══════════════════════════════════════════════════════════════ */
 .badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.2rem;
-  padding: 0.22rem 0.6rem;
-  border-radius: 20px;
-  font-size: 0.72rem;
-  font-weight: 600;
+  display:        inline-flex;
+  align-items:    center;
+  gap:            0.2rem;
+  padding:        0.2rem 0.55rem;
+  border-radius:  20px;
+  font-size:      0.7rem;
+  font-weight:    600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
+  white-space:    nowrap;
 }
 
-.badge-primary {
-  background: #EEF2FF;
-  color: #4338CA;
-  border: 1px solid #C7D2FE;
-}
+.badge-primary   { background: #EEF2FF; color: #4338CA; border: 1px solid #C7D2FE; }
+.badge-secondary { background: #ECFEFF; color: #0E7490; border: 1px solid #A5F3FC; }
+.badge-accent    { background: #FFF7ED; color: #C2410C; border: 1px solid #FED7AA; }
 
-.badge-secondary {
-  background: #ECFEFF;
-  color: #0E7490;
-  border: 1px solid #A5F3FC;
-}
-
-.badge-accent {
-  background: #FFF7ED;
-  color: #C2410C;
-  border: 1px solid #FED7AA;
-}
-
-/* Department-specific badge palette */
-.badge-dept-cse   { background: #EEF2FF; color: #4338CA; border: 1px solid #C7D2FE; }
-.badge-dept-ece   { background: #ECFEFF; color: #0E7490; border: 1px solid #A5F3FC; }
-.badge-dept-eee   { background: #FEFCE8; color: #A16207; border: 1px solid #FDE68A; }
-.badge-dept-mech  { background: #FFF7ED; color: #C2410C; border: 1px solid #FED7AA; }
-.badge-dept-civil { background: #F0FDF4; color: #15803D; border: 1px solid #BBF7D0; }
-
-/* Difficulty badges */
-.badge-beginner     { background: #F0FDF4; color: #15803D; border: 1px solid #BBF7D0; }
-.badge-intermediate { background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE; }
-.badge-advanced     { background: #FFF7ED; color: #C2410C; border: 1px solid #FED7AA; }
-
-/* ── 10. FORM INPUTS ──────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   9. FORM INPUTS
+   ══════════════════════════════════════════════════════════════ */
 .input-group {
-  display: flex;
+  display:        flex;
   flex-direction: column;
-  gap: 0.4rem;
-  margin-bottom: 1.25rem;
+  gap:            0.4rem;
+  margin-bottom:  1.25rem;
 }
 
 .input-label {
-  font-size: 0.875rem;
+  font-size:   0.875rem;
   font-weight: 600;
-  color: var(--text-sub);
+  color:       var(--text-sub);
 }
 
 .input-field {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  background: #FFFFFF;
-  border: 1px solid #CBD5E1;
+  width:        100%;
+  padding:      0.72rem 1rem;
+  background:   #FFFFFF;
+  border:       1px solid #CBD5E1;
   border-radius: var(--radius-sm);
-  color: var(--text-main);
-  font-size: 0.95rem;
-  font-family: var(--font-primary);
-  transition: var(--transition);
+  color:        var(--text-main);
+  font-size:    0.94rem;
+  font-family:  var(--font-primary);
+  transition:
+    border-color var(--t-fast),
+    box-shadow   var(--t-fast);
   appearance: none;
 }
 
-.input-field::placeholder {
-  color: #94A3B8;
-}
+.input-field::placeholder { color: #94A3B8; }
 
 .input-field:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px var(--primary-ring);
-  outline: none;
+  box-shadow:   0 0 0 3px var(--primary-ring);
+  outline:      none;
 }
 
 select.input-field,
 select {
   background: #FFFFFF;
-  color: var(--text-main);
-  border: 1px solid #CBD5E1;
+  color:      var(--text-main);
+  border:     1px solid #CBD5E1;
 }
 
-/* ── 11. COURSE CARDS — DARK SURFACE, WHITE TEXT ─────────────── */
-/*
-  Every CourseCard renders as div.glass-panel[style*="cursor: pointer"]
-  We convert them from the white glass-panel base to a rich near-black
-  card while keeping the light page background completely unchanged.
-*/
+/* ══════════════════════════════════════════════════════════════
+   10. COURSE CARDS  — dark navy surface, white text
+   ══════════════════════════════════════════════════════════════ */
 
+/* Base dark card */
 div.glass-panel[style*="cursor: pointer"],
 div.glass-panel[style*="cursor:pointer"] {
   background:    var(--card-dark) !important;
@@ -371,100 +381,110 @@ div.glass-panel[style*="cursor:pointer"] {
   border-radius: var(--radius-lg) !important;
   box-shadow:    var(--card-shadow) !important;
   overflow:      hidden;
+  /* Only transition properties that CSS can animate — NOT transform,
+     which is controlled by JS onMouseEnter.                         */
   transition:
-    transform   0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    box-shadow  0.25s ease,
-    border-color 0.25s ease !important;
+    box-shadow   0.28s var(--ease-out),
+    border-color 0.28s var(--ease-out),
+    transform    0.28s var(--ease-out) !important;
 }
 
-/* Hover state — slight lift, brighter border, deeper shadow */
+/* Hover: lift + deeper shadow + indigo border glow */
 div.glass-panel[style*="cursor: pointer"]:hover,
 div.glass-panel[style*="cursor:pointer"]:hover {
-  transform:    translateY(-5px) !important;
+  transform:    translateY(-6px) !important;
   box-shadow:   var(--card-shadow-hover) !important;
-  border-color: rgba(99, 102, 241, 0.45) !important;
+  border-color: rgba(99, 102, 241, 0.40) !important;
 }
 
-/* Course title → white */
+/* ── Card title → white ─────────────────────────────────────── */
 div.glass-panel[style*="cursor: pointer"] h3,
-div.glass-panel[style*="cursor:pointer"] h3,
+div.glass-panel[style*="cursor:pointer"]  h3,
 h3[style*="#f8fafc"] {
-  color: var(--card-text-primary) !important;
+  color:       var(--card-text-primary) !important;
+  font-size:   1.05rem !important;
+  font-weight: 700 !important;
+  line-height: 1.35 !important;
 }
 
-/* Category label (small coloured label above title) */
+/* ── Category (above title) — keep cyan accent on dark ──────── */
 div.glass-panel[style*="cursor: pointer"] div[style*="color: var(--secondary)"],
-div.glass-panel[style*="cursor:pointer"] div[style*="color: var(--secondary)"],
+div.glass-panel[style*="cursor:pointer"]  div[style*="color: var(--secondary)"],
 div[style*="color: var(--secondary)"] {
-  color: #67E8F9 !important;
+  color:       #67E8F9 !important;
+  font-size:   0.72rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
-/* Instructor name */
+/* ── Instructor ─────────────────────────────────────────────── */
 div.glass-panel[style*="cursor: pointer"] p,
-div.glass-panel[style*="cursor:pointer"] p,
+div.glass-panel[style*="cursor:pointer"]  p,
 p[style*="#94a3b8"] {
-  color: var(--card-text-muted) !important;
+  color:    var(--card-text-muted) !important;
+  font-size: 0.82rem !important;
 }
 
-/* Stats row: rating / duration / price row */
+/* ── Stats row ──────────────────────────────────────────────── */
 div.glass-panel[style*="cursor: pointer"] div[style*="#cbd5e1"],
-div.glass-panel[style*="cursor:pointer"] div[style*="#cbd5e1"],
+div.glass-panel[style*="cursor:pointer"]  div[style*="#cbd5e1"],
 div[style*="#cbd5e1"] {
   color: var(--card-text-secondary) !important;
 }
 
-/* Stats separator line */
+/* Stats separator */
 div.glass-panel[style*="cursor: pointer"] div[style*="rgba(255, 255, 255, 0.06)"],
-div.glass-panel[style*="cursor:pointer"] div[style*="rgba(255, 255, 255, 0.06)"] {
-  border-bottom-color: rgba(255, 255, 255, 0.10) !important;
+div.glass-panel[style*="cursor:pointer"]  div[style*="rgba(255, 255, 255, 0.06)"] {
+  border-bottom-color: rgba(255, 255, 255, 0.09) !important;
 }
 
-/* Rating stars + number */
+/* Rating star */
 div[style*="#fbbf24"],
 div.glass-panel div[style*="#fbbf24"] {
-  color: #FCD34D !important;
+  color: #FBBF24 !important;
 }
 
-/* Student count (greyed number next to rating) */
+/* Student-count muted text */
 span[style*="color: #64748b"] {
   color: var(--card-text-muted) !important;
 }
 
-/* Price — bright cyan on dark card */
+/* Price — amber-warm on dark card */
 div[style*="#67e8f9"],
 div.glass-panel[style*="cursor: pointer"] div[style*="#67e8f9"] {
-  color: #67E8F9 !important;
+  color:       #67E8F9 !important;
   font-weight: 700;
 }
 
-/* Wishlist heart button — dark frosted glass on dark card */
+/* ── Wishlist button ─────────────────────────────────────────── */
 button[title="Save to Wishlist"] {
-  background:    rgba(0, 0, 0, 0.45) !important;
-  border:        1px solid rgba(255, 255, 255, 0.18) !important;
-  backdrop-filter: blur(6px) !important;
+  background:      rgba(0, 0, 0, 0.40) !important;
+  border:          1px solid rgba(255, 255, 255, 0.16) !important;
+  backdrop-filter: blur(8px) !important;
   transition:
     background-color 0.18s ease,
-    border-color     0.18s ease,
-    color            0.15s ease !important;
+    border-color     0.18s ease !important;
 }
 
 button[title="Save to Wishlist"]:hover {
-  background:    rgba(220, 38, 38, 0.25) !important;
-  border-color:  rgba(248, 113, 113, 0.45) !important;
+  background:  rgba(220, 38, 38, 0.28) !important;
+  border-color: rgba(248, 113, 113, 0.50) !important;
 }
 
-/* Dept / difficulty image badges — small frosted pill on thumbnail */
+/* ── Image badges (dept / difficulty pill on thumbnail) ──────── */
 span.badge.badge-primary[style*="blur"],
 span.badge.badge-secondary[style*="blur"] {
-  background:    rgba(15, 23, 42, 0.75) !important;
-  color:         #E2E8F0 !important;
-  border:        1px solid rgba(255, 255, 255, 0.18) !important;
+  background:      rgba(10, 15, 30, 0.72) !important;
+  color:           #E2E8F0 !important;
+  border:          1px solid rgba(255, 255, 255, 0.15) !important;
   backdrop-filter: blur(8px) !important;
+  font-size:       0.65rem !important;
 }
 
-/* Thumbnail image hover scale */
+/* ── Thumbnail zoom ──────────────────────────────────────────── */
 div.glass-panel img {
-  transition: transform 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.35s var(--ease-out);
 }
 
 div.glass-panel[style*="cursor: pointer"]:hover img,
@@ -472,64 +492,73 @@ div.glass-panel[style*="cursor:pointer"]:hover img {
   transform: scale(1.04);
 }
 
-/* ── 12. RECOMMENDATION REASON BANNER ────────────────────────── */
-/* Inside a dark card — use a dark translucent strip */
+/* ══════════════════════════════════════════════════════════════
+   11. RECOMMENDATION REASON BANNER  (inside dark card)
+   ══════════════════════════════════════════════════════════════ */
 .rec-explanation-banner {
-  background:    rgba(255, 255, 255, 0.06);
+  background:    rgba(255, 255, 255, 0.055);
   border-left:   3px solid #818CF8;
-  padding:       0.5rem 0.75rem;
+  padding:       0.45rem 0.75rem;
   border-radius: 0 6px 6px 0;
-  font-size:     0.78rem;
+  font-size:     0.76rem;
   color:         #A5B4FC;
   display:       flex;
   align-items:   center;
   gap:           0.4rem;
   margin-top:    0.5rem;
-  transition:    background-color 0.18s ease;
+  transition:    background-color var(--t-fast);
 }
 
 .rec-explanation-banner svg {
-  color: #818CF8 !important;
+  color:     #818CF8 !important;
   flex-shrink: 0;
 }
 
-/* ── 13. SECTION HEADINGS ─────────────────────────────────────── */
-/*
-  RecommendationSection renders h2 with color: '#f8fafc'.
-  Home.jsx history heading uses color: 'black'.
-  Both must render as true black on the light page background.
-*/
+/* ══════════════════════════════════════════════════════════════
+   12. SECTION HEADINGS
+   ══════════════════════════════════════════════════════════════ */
+/* RecommendationSection uses color:'#f8fafc'; user changed some to 'black'.
+   Both map to the same dark text on the light page.              */
 h2[style*="#f8fafc"],
 h2[style*="f8fafc"],
 h2[style*="black"],
 h2[style*="#000"] {
-  color: #0F172A !important;
+  color:       #0F172A !important;
+  font-size:   1.4rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.03em !important;
 }
 
-/* NOTE: h3 inside course cards must remain white — handled above */
-/* Section icon accent */
+/* NOTE: h3 inside course cards must stay white — see §10 above */
+
+/* Section icon tint */
 section > div svg[style*="818cf8"],
 section > div svg[style*="#818cf8"] {
   color: var(--primary) !important;
 }
 
+/* Section subtitle */
 p[style*="var(--text-muted)"],
 p[style*="text-muted"] {
-  color: var(--text-muted) !important;
+  color:     var(--text-muted) !important;
+  font-size: 0.88rem !important;
 }
 
+/* Cross-domain tag (cyan) */
 span[style*="rgba(6, 182, 212, 0.15)"] {
-  background: #ECFEFF !important;
+  background:  #ECFEFF !important;
   border-color: #A5F3FC !important;
-  color: var(--secondary) !important;
+  color:        var(--secondary) !important;
 }
 
-/* ── 14. SEARCH BAR ───────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   13. SEARCH BAR
+   ══════════════════════════════════════════════════════════════ */
 form div[style*="rgba(30, 41, 59"] {
-  background:    #FFFFFF !important;
-  border:        1px solid #CBD5E1 !important;
-  border-radius: 14px !important;
-  box-shadow:    0 4px 20px rgba(15, 23, 42, 0.06) !important;
+  background:      #FFFFFF !important;
+  border:          1px solid #D1D5DB !important;
+  border-radius:   16px !important;
+  box-shadow:      0 4px 24px rgba(15, 23, 42, 0.07) !important;
   backdrop-filter: none !important;
   transition:
     box-shadow   0.22s ease,
@@ -538,13 +567,19 @@ form div[style*="rgba(30, 41, 59"] {
 
 form div[style*="rgba(30, 41, 59"]:focus-within {
   border-color: var(--primary) !important;
-  box-shadow: 0 0 0 3px var(--primary-ring),
-              0 4px 20px rgba(15, 23, 42, 0.06) !important;
+  box-shadow:
+    0 0 0 3px var(--primary-ring),
+    0 4px 24px rgba(15, 23, 42, 0.07) !important;
 }
 
 form div > svg[style*="818cf8"],
 form div > svg[color="#818cf8"] {
-  color: #64748B !important;
+  color: #94A3B8 !important;
+  transition: color var(--t-fast) !important;
+}
+
+form div[style*="rgba(30, 41, 59"]:focus-within > svg {
+  color: var(--primary) !important;
 }
 
 form input[type="text"][style*="#f8fafc"] {
@@ -555,529 +590,489 @@ form input[type="text"]::placeholder {
   color: #94A3B8 !important;
 }
 
-/* ── 15. HERO SECTION ─────────────────────────────────────────── */
-/* Hero heading gradient → clean dark heading */
+/* ══════════════════════════════════════════════════════════════
+   14. HERO SECTION
+   ══════════════════════════════════════════════════════════════ */
 h1[style*="background: linear-gradient"] {
-  background: none !important;
+  background:              none !important;
   -webkit-background-clip: unset !important;
   -webkit-text-fill-color: var(--text-main) !important;
-  color: var(--text-main) !important;
+  color:       var(--text-main) !important;
+  font-size:   2.5rem !important;
+  font-weight: 800 !important;
 }
 
-/* Personalization badge */
+/* Personalization badge pill */
 div.badge.badge-primary[style*="Knowledge Graph"],
 div[style*="badge-primary"] {
-  background: #EEF2FF !important;
+  background:  #EEF2FF !important;
   border-color: #C7D2FE !important;
-  color: var(--primary) !important;
-}
-
-/* Hero description */
-p[style*="max-width: '680px'"],
-section p[style*="var(--text-muted)"] {
-  color: var(--text-muted) !important;
+  color:        var(--primary) !important;
 }
 
 /* Refresh button */
 button[style*="rgba(99, 102, 241, 0.12)"] {
-  background: #F1F5F9 !important;
+  background:   #F1F5F9 !important;
   border-color: #CBD5E1 !important;
-  color: var(--text-sub) !important;
+  color:        var(--text-sub) !important;
+  font-size:    0.8rem !important;
+  transition:
+    background var(--t-fast),
+    border-color var(--t-fast),
+    color var(--t-fast) !important;
 }
 
 button[style*="rgba(99, 102, 241, 0.12)"]:hover {
-  background: var(--primary-light) !important;
+  background:   var(--primary-light) !important;
   border-color: #A5B4FC !important;
-  color: var(--primary) !important;
+  color:        var(--primary) !important;
 }
 
-/* ── 16. CROSS-DOMAIN ALERT PANEL ────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   15. CROSS-DOMAIN INSIGHT PANEL
+   ══════════════════════════════════════════════════════════════ */
 div.glass-panel[style*="borderLeft: '3px solid #818cf8'"],
 div.glass-panel[style*="borderLeft: \"3px solid #818cf8\""] {
-  background: #EEF2FF !important;
-  border-color: #C7D2FE !important;
+  background:        #EEF2FF !important;
+  border-color:      #C7D2FE !important;
   border-left-color: var(--primary) !important;
 }
 
-/* Cross-domain heading */
-h4[style*="white"] {
-  color: var(--text-main) !important;
-}
+h4[style*="white"] { color: var(--text-main) !important; }
 
-/* Graph-Powered badge inside cross-domain panel */
 span.badge.badge-primary {
-  background: #EEF2FF !important;
-  color: var(--primary) !important;
+  background:  #EEF2FF !important;
+  color:        var(--primary) !important;
   border-color: #C7D2FE !important;
 }
 
-/* Cross-domain description text */
-div.glass-panel p {
-  color: var(--text-muted) !important;
-}
+div.glass-panel p       { color: var(--text-muted) !important; }
+div.glass-panel p strong { color: var(--text-main)  !important; }
 
-div.glass-panel p strong {
-  color: var(--text-main) !important;
-}
-
-/* ── 17. INTEREST PROFILE BARS ────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   16. INTEREST PROFILE BARS
+   ══════════════════════════════════════════════════════════════ */
 section.glass-panel {
-  border: 1px solid var(--border-color) !important;
-  box-shadow: var(--shadow-sm) !important;
-  background: #FFFFFF !important;
+  background:  #FFFFFF !important;
+  border:      1px solid var(--border-color) !important;
+  box-shadow:  var(--shadow-sm) !important;
 }
 
-/* Interest bar card */
 div[style*="rgba(15, 23, 42, 0.6)"][style*="padding: '0.85rem'"] {
-  background: #F8FAFC !important;
+  background:  #F8FAFC !important;
   border-color: var(--border-color) !important;
 }
 
-/* Interest bar fill */
 div[style*="linear-gradient(90deg, #6366f1, #06b6d4)"] {
   background: linear-gradient(90deg, var(--primary), var(--secondary)) !important;
 }
 
-/* Interest bar track */
-div[style*="background: '#334155'"] {
-  background: #E2E8F0 !important;
-}
+div[style*="background: '#334155'"]  { background: #E2E8F0 !important; }
+span[style*="color: '#818cf8'"]      { color: var(--primary) !important; }
 
-/* Interest score number */
-span[style*="color: '#818cf8'"] {
-  color: var(--primary) !important;
-}
-
-/* ── 18. HISTORY SECTION (amber) ─────────────────────────────── */
-/* Already uses amber; keep the amber accent, just ensure
-   cards display in light style.                               */
-
-/* History card */
+/* ══════════════════════════════════════════════════════════════
+   17. HISTORY SECTION  (amber-accented)
+   ══════════════════════════════════════════════════════════════ */
 div[style*="cursor: 'pointer'"].glass-panel,
 div.glass-panel[style*="cursor: 'pointer'"] {
-  background: #FFFFFF !important;
+  background:  #FFFFFF !important;
   border-color: var(--border-color) !important;
 }
 
-/* History reason text (amber) */
-div[style*="color: '#f59e0b'"] {
-  color: var(--accent) !important;
-}
+div[style*="color: '#f59e0b'"] { color: var(--accent) !important; }
 
-/* ── 19. LOGIN / REGISTER PAGES ───────────────────────────────── */
-/* Auth card */
+/* ══════════════════════════════════════════════════════════════
+   18. AUTH PAGES  (login / register)
+   ══════════════════════════════════════════════════════════════ */
 div.glass-panel[style*="padding: '2.5rem 2rem'"] {
-  background: #FFFFFF !important;
+  background:  #FFFFFF !important;
   border-color: var(--border-color) !important;
-  box-shadow: var(--shadow-md) !important;
+  box-shadow:  var(--shadow-md) !important;
 }
 
-/* Auth heading */
-h2[style*="color: 'white'"] {
-  color: var(--text-main) !important;
-}
+h2[style*="color: 'white'"] { color: var(--text-main) !important; }
+p[style*="var(--text-muted)"] { color: var(--text-muted) !important; }
 
-/* Auth description */
-p[style*="var(--text-muted)"] {
-  color: var(--text-muted) !important;
-}
-
-/* Auth logo icon */
 div[style*="linear-gradient(135deg, #6366f1, #8b5cf6)"] {
   background: linear-gradient(135deg, var(--primary), var(--purple)) !important;
-  box-shadow: 0 6px 18px rgba(79, 70, 229, 0.20) !important;
+  box-shadow: 0 6px 18px rgba(79, 70, 229, 0.22) !important;
 }
 
-/* Error alert */
 div[style*="rgba(239, 68, 68, 0.15)"] {
-  background: #FEF2F2 !important;
+  background:  #FEF2F2 !important;
   border-color: #FECACA !important;
-  color: var(--error) !important;
-}
-
-/* Demo accounts divider */
-div[style*="borderTop: '1px solid var(--border-color)'"] {
-  border-top-color: var(--border-color) !important;
+  color:        var(--error) !important;
 }
 
 div[style*="color: '#94a3b8'"][style*="textTransform: 'uppercase'"] {
   color: var(--text-muted) !important;
 }
 
-/* ── 20. CHATBOT ──────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   19. CHATBOT
+   ══════════════════════════════════════════════════════════════ */
+
 /* Floating trigger button */
 button[title="Open AI Learning Assistant"] {
-  background: var(--primary) !important;
-  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.28) !important;
-  border: none !important;
+  background:    var(--primary) !important;
+  box-shadow:    0 6px 18px rgba(79, 70, 229, 0.30),
+                 0 2px 6px  rgba(79, 70, 229, 0.20) !important;
+  border:        none !important;
+  border-radius: 50% !important;
+  transition:
+    transform    0.22s var(--ease-spring),
+    box-shadow   var(--t-fast),
+    background   var(--t-fast) !important;
 }
 
 button[title="Open AI Learning Assistant"]:hover {
   background: var(--primary-hover) !important;
-  transform: translateY(-3px) scale(1.04) !important;
+  box-shadow: 0 10px 28px rgba(79, 70, 229, 0.40),
+              0 4px 10px rgba(79, 70, 229, 0.22) !important;
+  transform:  translateY(-3px) scale(1.05) !important;
 }
 
-/* Chat panel container */
+/* Tooltip on hover */
+button[title="Open AI Learning Assistant"]::after {
+  content:         attr(title);
+  position:        absolute;
+  right:           calc(100% + 10px);
+  top:             50%;
+  transform:       translateY(-50%);
+  white-space:     nowrap;
+  background:      #0F172A;
+  color:           #F8FAFC;
+  font-size:       0.75rem;
+  font-family:     var(--font-primary);
+  font-weight:     500;
+  padding:         0.35rem 0.75rem;
+  border-radius:   8px;
+  pointer-events:  none;
+  opacity:         0;
+  transition:      opacity 0.18s ease;
+  box-shadow:      0 4px 12px rgba(0,0,0,0.18);
+  letter-spacing:  0.01em;
+}
+
+button[title="Open AI Learning Assistant"]:hover::after {
+  opacity: 1;
+}
+
+/* Chat panel */
 div.glass-panel[style*="width: '420px'"] {
-  background: #FFFFFF !important;
+  background:  #FFFFFF !important;
   border-color: var(--border-color) !important;
-  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.14) !important;
+  box-shadow:  var(--shadow-lg) !important;
+  border-radius: var(--radius-lg) !important;
 }
 
-/* Chat panel header */
 div[style*="background: 'linear-gradient(90deg, #1e1b4b"] {
-  background: #F8FAFC !important;
-  border-bottom-color: var(--border-color) !important;
+  background:        #F8FAFC !important;
+  border-bottom:     1px solid var(--border-color) !important;
 }
 
-/* Header title */
-h4[style*="color: 'white'"] {
-  color: var(--text-main) !important;
-}
+h4[style*="color: 'white'"] { color: var(--text-main) !important; }
 
-/* Header bot icon circle */
 div[style*="background: '#6366f1'"][style*="borderRadius: '50%'"] {
   background: var(--primary) !important;
 }
 
-/* Header subtitle */
-span[style*="color: '#a5b4fc'"] {
-  color: var(--text-muted) !important;
-}
+span[style*="color: '#a5b4fc'"] { color: var(--text-muted) !important; }
 
-/* Messages scroll area — bg */
 div[style*="flex: 1"][style*="overflowY: 'auto'"] {
   background: #FAFBFC !important;
 }
 
-/* AI message bubble */
+/* AI bubble */
 div[style*="rgba(30, 41, 59, 0.9)"][style*="borderRadius: '16px 16px 16px 2px'"] {
   background: #F1F5F9 !important;
-  color: var(--text-main) !important;
-  border: 1px solid var(--border-color) !important;
+  color:      var(--text-main) !important;
+  border:     1px solid var(--border-color) !important;
 }
 
-/* User message bubble */
+/* User bubble */
 div[style*="linear-gradient(135deg, #6366f1, #4f46e5)"][style*="borderRadius: '16px 16px 2px 16px'"] {
   background: var(--primary) !important;
-  color: #FFFFFF !important;
+  color:      #FFFFFF !important;
 }
 
-/* Entity tags (Step 2) */
+/* Entity tags */
 span[style*="rgba(99,102,241,0.18)"] {
-  background: #EEF2FF !important;
+  background:  #EEF2FF !important;
   border-color: #C7D2FE !important;
-  color: var(--primary) !important;
+  color:        var(--primary) !important;
 }
 
 /* Cypher code block */
 div[style*="background: '#0d1117'"] {
-  background: #1E293B !important;
-  color: #93C5FD !important;
-  border-color: #E2E8F0 !important;
+  background:  #1E293B !important;
+  color:        #93C5FD !important;
+  border-color: #334155 !important;
 }
 
-/* Suggested prompts strip */
+/* Prompt strip */
 div[style*="background: 'rgba(15, 23, 42, 0.95)'"] {
-  background: #F8FAFC !important;
-  border-top-color: var(--border-color) !important;
+  background:        #F8FAFC !important;
+  border-top-color:  var(--border-color) !important;
 }
 
 button[style*="rgba(99, 102, 241, 0.13)"] {
-  background: #EEF2FF !important;
+  background:   #EEF2FF !important;
   border-color: #C7D2FE !important;
-  color: var(--primary) !important;
+  color:        var(--primary) !important;
+  transition:   background var(--t-fast), border-color var(--t-fast) !important;
 }
 
 button[style*="rgba(99, 102, 241, 0.13)"]:hover {
-  background: #C7D2FE !important;
+  background:   #C7D2FE !important;
 }
 
-/* Chat input area */
+/* Input area */
 div[style*="background: '#0f172a'"][style*="borderTop"] {
-  background: #FFFFFF !important;
+  background:       #FFFFFF !important;
   border-top-color: var(--border-color) !important;
 }
 
-/* Chat text input */
 input[style*="rgba(30,41,59,0.8)"],
 input[style*="rgba(30, 41, 59, 0.8)"] {
-  background: #F8FAFC !important;
+  background:   #F8FAFC !important;
   border-color: #CBD5E1 !important;
-  color: var(--text-main) !important;
+  color:        var(--text-main) !important;
+  transition:
+    border-color var(--t-fast),
+    box-shadow   var(--t-fast) !important;
 }
 
 input[style*="rgba(30,41,59,0.8)"]:focus,
 input[style*="rgba(30, 41, 59, 0.8)"]:focus {
   border-color: var(--primary) !important;
-  box-shadow: 0 0 0 3px var(--primary-ring) !important;
+  box-shadow:   0 0 0 3px var(--primary-ring) !important;
 }
 
-/* Matched techs label */
-div[style*="color: '#67e8f9'"] {
-  color: var(--secondary) !important;
-}
-
-/* Course cards inside chatbot */
+div[style*="color: '#67e8f9'"]                    { color: var(--secondary) !important; }
 div[style*="rgba(15,23,42,0.75)"],
-div[style*="rgba(15, 23, 42, 0.75)"] {
-  background: #F8FAFC !important;
-  border-color: var(--border-color) !important;
-}
-
+div[style*="rgba(15, 23, 42, 0.75)"]              { background: #F8FAFC !important; border-color: var(--border-color) !important; }
 div[style*="rgba(15,23,42,0.75)"]:hover,
-div[style*="rgba(15, 23, 42, 0.75)"]:hover {
-  border-color: #A5B4FC !important;
-}
+div[style*="rgba(15, 23, 42, 0.75)"]:hover        { border-color: #A5B4FC !important; }
+div[style*="color: 'white'"][style*="overflow: 'hidden'"]  { color: var(--text-main) !important; }
+div[style*="color: '#64748b'"][style*="flexDirection: 'column'"] { color: var(--text-muted) !important; }
+span[style*="color: '#818cf8'"][style*="Step"]    { color: var(--primary) !important; }
 
-/* Course title inside chatbot */
-div[style*="color: 'white'"][style*="overflow: 'hidden'"] {
-  color: var(--text-main) !important;
-}
-
-/* Step/pipeline indicator text */
-div[style*="color: '#64748b'"][style*="flexDirection: 'column'"] {
-  color: var(--text-muted) !important;
-}
-
-span[style*="color: '#818cf8'"][style*="Step"] {
-  color: var(--primary) !important;
-}
-
-/* Loading dots */
-div[style*="background: '#818cf8'"][style*="animation: \`bounce"] {
-  background: var(--primary) !important;
-}
-
-/* ── 21. GRAPH KNOWLEDGE PAGE ─────────────────────────────────── */
-/* Graph container */
+/* ══════════════════════════════════════════════════════════════
+   20. GRAPH KNOWLEDGE PAGE
+   ══════════════════════════════════════════════════════════════ */
 div[style*="background: 'rgba(15, 23, 42"] {
-  background: #FFFFFF !important;
-  border: 1px solid var(--border-color) !important;
+  background:    #FFFFFF !important;
+  border:        1px solid var(--border-color) !important;
   border-radius: var(--radius-lg) !important;
-  box-shadow: var(--shadow-sm) !important;
+  box-shadow:    var(--shadow-sm) !important;
 }
 
-/* Graph control buttons */
 button[style*="rgba(255, 255, 255, 0.1)"],
 button[style*="rgba(255,255,255,0.1)"] {
-  background: #FFFFFF !important;
-  border: 1px solid var(--border-color) !important;
-  color: var(--text-sub) !important;
+  background:   #FFFFFF !important;
+  border:       1px solid var(--border-color) !important;
+  color:        var(--text-sub) !important;
+  transition:
+    background   var(--t-fast),
+    border-color var(--t-fast),
+    color        var(--t-fast) !important;
 }
 
 button[style*="rgba(255, 255, 255, 0.1)"]:hover {
   background: #F8FAFC !important;
-  color: var(--primary) !important;
+  color:      var(--primary) !important;
 }
 
-/* ── 22. LEARNING PATH PAGE ───────────────────────────────────── */
-/* Learning path cards */
+/* ══════════════════════════════════════════════════════════════
+   21. LEARNING PATH PAGE
+   ══════════════════════════════════════════════════════════════ */
 div[style*="background: 'rgba(30, 41"] {
-  background: #FFFFFF !important;
+  background:  #FFFFFF !important;
   border-color: var(--border-color) !important;
 }
 
-/* Progress bar track */
 div[style*="background: '#334155'"][style*="height"],
-div[style*="background: #334155"][style*="height"] {
-  background: #E2E8F0 !important;
-}
+div[style*="background: #334155"][style*="height"] { background: #E2E8F0 !important; }
 
-/* Progress bar fill */
 div[style*="background: '#6366f1'"][style*="height"],
-div[style*="background: #6366f1"][style*="height"] {
-  background: var(--primary) !important;
-}
+div[style*="background: #6366f1"][style*="height"]  { background: var(--primary) !important; }
 
-/* Completed border */
 div[style*="BBF7D0"] {
-  background: #F0FDF4 !important;
+  background:  #F0FDF4 !important;
   border-color: #BBF7D0 !important;
 }
 
-/* ── 23. MY LEARNING PAGE ─────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   22. MY LEARNING PAGE
+   ══════════════════════════════════════════════════════════════ */
 div[style*="#1e293b"],
 div[style*="rgba(30, 41, 59"] {
-  background: #FFFFFF !important;
+  background:  #FFFFFF !important;
   border-color: var(--border-color) !important;
 }
 
-/* Enrolled course title */
-h3[style*="color: 'white'"] {
-  color: var(--text-main) !important;
-}
+h3[style*="color: 'white'"] { color: var(--text-main) !important; }
 
-/* ── 24. EXPLORE PAGE / FILTER ────────────────────────────────── */
-/* Filter pills */
+/* ══════════════════════════════════════════════════════════════
+   23. EXPLORE PAGE  (filter chips)
+   ══════════════════════════════════════════════════════════════ */
 button[style*="rgba(99, 102, 241, 0.2)"],
 button[style*="rgba(99,102,241,0.2)"] {
-  background: var(--primary-light) !important;
+  background:   var(--primary-light) !important;
   border-color: #A5B4FC !important;
-  color: var(--primary) !important;
+  color:        var(--primary) !important;
+  transition:
+    background   var(--t-fast),
+    border-color var(--t-fast),
+    color        var(--t-fast) !important;
 }
 
 button[style*="rgba(30, 41, 59"][style*="border-radius"] {
-  background: #FFFFFF !important;
+  background:   #FFFFFF !important;
   border-color: var(--border-color) !important;
-  color: var(--text-sub) !important;
+  color:        var(--text-sub) !important;
+  transition:
+    background   var(--t-fast),
+    border-color var(--t-fast),
+    color        var(--t-fast) !important;
 }
 
 button[style*="rgba(30, 41, 59"][style*="border-radius"]:hover {
-  background: #F1F5F9 !important;
+  background:   #F1F5F9 !important;
   border-color: #A5B4FC !important;
-  color: var(--primary) !important;
+  color:        var(--primary) !important;
 }
 
-/* ── 25. WISHLIST PAGE ────────────────────────────────────────── */
-/* Empty state */
-div[style*="textAlign: 'center'"][style*="padding: '4rem'"] {
-  color: var(--text-muted) !important;
-}
-
-/* ── 26. GENERIC DARK OVERRIDES ───────────────────────────────── */
-/* Catch-all: override any remaining dark inline backgrounds */
+/* ══════════════════════════════════════════════════════════════
+   24. GENERIC DARK-SURFACE OVERRIDES  (page level only)
+   ══════════════════════════════════════════════════════════════ */
 [style*="background: '#1e293b'"],
 [style*="background: #1e293b"] {
   background: #FFFFFF !important;
-  color: var(--text-main) !important;
+  color:      var(--text-main) !important;
 }
 
 [style*="background: '#0f172a'"],
 [style*="background: #0f172a"] {
   background: #F8FAFC !important;
-  color: var(--text-main) !important;
+  color:      var(--text-main) !important;
 }
 
+/* Text colour overrides for inline dark-mode colours */
 [style*="color: '#f8fafc'"],
-[style*="color: #f8fafc"] {
-  color: var(--text-main) !important;
-}
+[style*="color: #f8fafc"]     { color: var(--text-main) !important; }
+[style*="color: '#94a3b8'"]   { color: var(--text-muted) !important; }
+[style*="color: '#a5b4fc'"]   { color: var(--primary) !important; }
+[style*="color: '#818cf8'"]   { color: var(--primary) !important; }
+[style*="color: '#67e8f9'"]   { color: var(--secondary) !important; }
+[style*="color: '#cbd5e1'"]   { color: var(--text-sub) !important; }
 
-[style*="color: '#94a3b8'"] {
-  color: var(--text-muted) !important;
-}
-
-[style*="color: '#a5b4fc'"] {
-  color: var(--primary) !important;
-}
-
-[style*="color: '#818cf8'"] {
-  color: var(--primary) !important;
-}
-
-[style*="color: '#67e8f9'"] {
-  color: var(--secondary) !important;
-}
-
-[style*="color: '#cbd5e1'"] {
-  color: var(--text-sub) !important;
-}
-
-/* Dark glassmorphism panels (rgba dark backgrounds) —
-   converted to light EXCEPT inside course cards.         */
+/* Transparent dark glassmorphism backgrounds → white (page level) */
 [style*="rgba(15, 23, 42, 0.6)"],
 [style*="rgba(15,23,42,0.6)"],
 [style*="rgba(15, 23, 42, 0.8)"],
 [style*="rgba(15,23,42,0.8)"],
 [style*="rgba(15, 23, 42, 0.85)"],
 [style*="rgba(15, 23, 42, 0.95)"] {
-  background: rgba(255, 255, 255, 0.96) !important;
+  background:  rgba(255, 255, 255, 0.96) !important;
   border-color: var(--border-color) !important;
 }
 
-/* Restore dark backgrounds when they're INSIDE a course card */
+/* Re-apply dark inside course cards (wishlist button) */
 div.glass-panel[style*="cursor: pointer"] [style*="rgba(15, 23, 42, 0.75)"],
 div.glass-panel[style*="cursor: pointer"] [style*="rgba(15, 23, 42, 0.8)"],
-div.glass-panel[style*="cursor:pointer"] [style*="rgba(15, 23, 42, 0.75)"],
-div.glass-panel[style*="cursor:pointer"] [style*="rgba(15, 23, 42, 0.8)"] {
-  background: rgba(0, 0, 0, 0.45) !important;
-  border-color: rgba(255, 255, 255, 0.18) !important;
+div.glass-panel[style*="cursor:pointer"]  [style*="rgba(15, 23, 42, 0.75)"],
+div.glass-panel[style*="cursor:pointer"]  [style*="rgba(15, 23, 42, 0.8)"] {
+  background:  rgba(0, 0, 0, 0.42) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
 }
 
-/* Dark card borders → keep on dark cards, override on page */
-[style*="rgba(255, 255, 255, 0.08)"] {
-  border-color: var(--border-color) !important;
-}
+/* Border-colour patches */
+[style*="rgba(255, 255, 255, 0.08)"] { border-color: var(--border-color) !important; }
 
-/* Restore transparent border on dark card thumbnails */
 div.glass-panel[style*="cursor: pointer"] [style*="rgba(255, 255, 255, 0.08)"],
-div.glass-panel[style*="cursor:pointer"] [style*="rgba(255, 255, 255, 0.08)"] {
-  border-color: rgba(255, 255, 255, 0.10) !important;
+div.glass-panel[style*="cursor:pointer"]  [style*="rgba(255, 255, 255, 0.08)"] {
+  border-color: rgba(255, 255, 255, 0.09) !important;
 }
 
-[style*="rgba(255, 255, 255, 0.06)"] {
-  border-color: var(--border-color) !important;
-}
+[style*="rgba(255, 255, 255, 0.06)"] { border-color: var(--border-color) !important; }
 
-/* ── 27. GRID ─────────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   25. COURSE GRID
+   ══════════════════════════════════════════════════════════════ */
 .course-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1.25rem;
+  display:               grid;
+  grid-template-columns: repeat(auto-fill, minmax(295px, 1fr));
+  gap:                   1.5rem;
+  margin-top:            1.35rem;
 }
 
-/* ── 28. LOADING STATES ───────────────────────────────────────── */
-/* Skeleton / pulse shimmer in light style */
+/* ══════════════════════════════════════════════════════════════
+   26. LOADING / SKELETON
+   ══════════════════════════════════════════════════════════════ */
 @keyframes shimmer {
   0%   { background-position: -600px 0; }
-  100% { background-position: 600px 0; }
+  100% { background-position:  600px 0; }
 }
 
 .skeleton {
-  background: linear-gradient(90deg, #F1F5F9 25%, #E2E8F0 50%, #F1F5F9 75%);
+  background:      linear-gradient(90deg,
+    #F1F5F9 25%, #E8EDF3 50%, #F1F5F9 75%);
   background-size: 600px 100%;
-  animation: shimmer 1.5s infinite linear;
-  border-radius: 6px;
+  animation:       shimmer 1.6s infinite linear;
+  border-radius:   var(--radius-sm);
 }
 
-/* ── 29. ANIMATIONS ───────────────────────────────────────────── */
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
+/* ══════════════════════════════════════════════════════════════
+   27. KEYFRAMES
+   ══════════════════════════════════════════════════════════════ */
+@keyframes spin      { from { transform: rotate(0deg); }   to { transform: rotate(360deg); } }
+@keyframes pulse     { 0%,100% { opacity: 1; }              50% { opacity: 0.45; } }
+@keyframes bounce    { 0%,60%,100% { transform: translateY(0); } 30% { transform: translateY(-7px); } }
+@keyframes fadeInUp  { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.45; }
-}
-
-@keyframes bounce {
-  0%, 60%, 100% { transform: translateY(0); }
-  30%            { transform: translateY(-7px); }
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ── 30. UTILITY ──────────────────────────────────────────────── */
-.text-primary   { color: var(--primary)  !important; }
+/* ══════════════════════════════════════════════════════════════
+   28. UTILITY CLASSES
+   ══════════════════════════════════════════════════════════════ */
+.text-primary   { color: var(--primary)    !important; }
 .text-muted     { color: var(--text-muted) !important; }
 .text-main      { color: var(--text-main)  !important; }
 .bg-surface     { background: var(--bg-surface) !important; }
 .border-default { border: 1px solid var(--border-color) !important; }
 
-/* ── 31. RESPONSIVE ───────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   29. RESPONSIVE
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .main-content {
+    padding: 2rem 1.5rem 6rem;
+  }
+}
+
 @media (max-width: 768px) {
   .main-content {
     padding: 1.25rem 1rem 5rem;
   }
 
   .course-grid {
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 1.1rem;
   }
 
+  h1[style*="background"],
   h1[style] {
     font-size: 1.75rem !important;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 520px) {
   .course-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .main-content {
+    padding: 1rem 0.875rem 5rem;
   }
 }
