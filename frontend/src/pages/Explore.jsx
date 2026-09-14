@@ -57,7 +57,7 @@ export default function Explore() {
           Search and filter across Full Stack, AI/ML, ECE, EEE, Mechanical, Civil, Cybersecurity, and Cloud engineering domains.
         </p>
 
-        <div style={{ marginTop: '1.25rem', maxWidth: '800px' }}>
+        <div style={{ marginTop: '1.25rem', maxWidth: '800px'}}>
           <SearchBar initialQuery={initialQuery} onSearch={(q) => handleSearch(q, filters)} />
         </div>
       </div>

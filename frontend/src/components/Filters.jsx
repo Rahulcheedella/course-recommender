@@ -35,7 +35,7 @@ export default function Filters({ filters, onChange, onReset }) {
           onChange={(e) => onChange('department', e.target.value === 'All' ? '' : e.target.value)}
         >
           {departments.map((dept) => (
-            <option key={dept} value={dept} style={{ background: '#1e293b' }}>{dept}</option>
+            <option key={dept} value={dept} style={{ background: 'white' }}>{dept}</option>
           ))}
         </select>
       </div>
@@ -49,7 +49,7 @@ export default function Filters({ filters, onChange, onReset }) {
           onChange={(e) => onChange('category', e.target.value === 'All' ? '' : e.target.value)}
         >
           {categories.map((cat) => (
-            <option key={cat} value={cat} style={{ background: '#1e293b' }}>{cat}</option>
+            <option key={cat} value={cat} style={{ background: 'white' }}>{cat}</option>
           ))}
         </select>
       </div>
@@ -63,7 +63,7 @@ export default function Filters({ filters, onChange, onReset }) {
           onChange={(e) => onChange('difficulty', e.target.value === 'All' ? '' : e.target.value)}
         >
           {difficulties.map((diff) => (
-            <option key={diff} value={diff} style={{ background: '#1e293b' }}>{diff}</option>
+            <option key={diff} value={diff} style={{ background: 'white' }}>{diff}</option>
           ))}
         </select>
       </div>
@@ -76,10 +76,10 @@ export default function Filters({ filters, onChange, onReset }) {
           value={filters.min_rating || 'All'} 
           onChange={(e) => onChange('min_rating', e.target.value === 'All' ? '' : e.target.value)}
         >
-          <option value="All" style={{ background: '#1e293b' }}>Any Rating</option>
-          <option value="4.8" style={{ background: '#1e293b' }}>4.8 ★ & above</option>
-          <option value="4.5" style={{ background: '#1e293b' }}>4.5 ★ & above</option>
-          <option value="4.0" style={{ background: '#1e293b' }}>4.0 ★ & above</option>
+          <option value="All" style={{ background: 'white' }}>Any Rating</option>
+          <option value="4.8" style={{ background: 'white' }}>4.8 ★ & above</option>
+          <option value="4.5" style={{ background: 'white' }}>4.5 ★ & above</option>
+          <option value="4.0" style={{ background: 'white' }}>4.0 ★ & above</option>
         </select>
       </div>
     </div>

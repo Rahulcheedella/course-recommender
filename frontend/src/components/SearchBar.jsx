@@ -44,7 +44,7 @@ export default function SearchBar({ initialQuery = '', onSearch }) {
             background: 'transparent',
             border: 'none',
             outline: 'none',
-            color: '#f8fafc',
+            color: 'black',
             fontSize: '1rem',
             padding: '0.6rem 0'
           }}
