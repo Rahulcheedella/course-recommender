@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Search, Compass } from 'lucide-react';
+import { Search, Compass, Info } from 'lucide-react';
 import SearchBar from '../components/SearchBar';
 import Filters from '../components/Filters';
 import CourseCard from '../components/CourseCard';
@@ -12,6 +12,7 @@ export default function Explore() {
   
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [noResultsMessage, setNoResultsMessage] = useState(null);
   const [filters, setFilters] = useState({
     department: '',
     category: '',
@@ -21,9 +22,13 @@ export default function Explore() {
 
   const handleSearch = async (queryStr, currentFilters = filters) => {
     setLoading(true);
+    setNoResultsMessage(null);
     try {
       const data = await searchCourses(queryStr, currentFilters);
       setCourses(data.results || []);
+      if (data.no_results_message) {
+        setNoResultsMessage(data.no_results_message);
+      }
     } catch (e) {
       console.error('Failed to search courses:', e);
     } finally {
@@ -46,6 +51,7 @@ export default function Explore() {
     setFilters(reset);
     handleSearch(initialQuery, reset);
   };
+
 
   return (
     <div>
@@ -76,6 +82,19 @@ export default function Explore() {
               Found <strong style={{ color: 'white' }}>{courses.length}</strong> courses matching criteria
             </span>
           </div>
+
+          {/* No-results / fallback message banner */}
+          {noResultsMessage && (
+            <div style={{
+              display: 'flex', alignItems: 'flex-start', gap: '0.6rem',
+              background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.3)',
+              borderRadius: '10px', padding: '0.75rem 1rem', marginBottom: '1rem',
+              fontSize: '0.85rem', color: '#a5b4fc'
+            }}>
+              <Info size={16} style={{ flexShrink: 0, marginTop: '1px', color: '#818cf8' }} />
+              {noResultsMessage}
+            </div>
+          )}
 
           {loading ? (
             <div style={{ textAlign: 'center', padding: '4rem 0', color: 'var(--text-muted)' }}>

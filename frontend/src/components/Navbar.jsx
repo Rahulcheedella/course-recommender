@@ -199,7 +199,7 @@ export default function Navbar() {
               <Link to="/login" className="btn btn-secondary" style={{ padding: '0.45rem 1rem', fontSize: '0.85rem' }}>
                 Sign In
               </Link>
-              <Link to="/register" className="btn btn-primary" style={{ padding: '0.45rem 1rem', fontSize: '0.85rem' }}>
+              <Link to="/register" className="btn btn-primary" style={{ padding: '0.45rem 1rem', fontSize: '0.85rem', backgroundColor: 'white' }}>
                 Register
               </Link>
             </div>

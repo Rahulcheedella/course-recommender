@@ -1,4 +1,5 @@
 import logging
+import re
 from datetime import datetime
 from pymongo import MongoClient
 from config import Config
@@ -154,43 +155,126 @@ class MongoDBService:
         return [c for c in COURSES_DATA if c["id"] in course_ids]
 
     def search_courses(self, query_str, filters=None):
+        """
+        Smart multi-keyword, field-weighted search over the course catalog.
+
+        Scoring weights (per matching token):
+          - title match:        150 pts  (exact phrase), 80 pts  (per word, whole-word)
+          - technology match:   100 pts  (per word, whole-word)
+          - skill match:         80 pts  (per word, whole-word)
+          - tag match:           60 pts  (per word, whole-word)
+          - category match:      50 pts  (per word, whole-word)
+          - description match:   30 pts  (per word, whole-word)
+          - department match:    20 pts  (low — secondary personalization only)
+
+        Token matching is WHOLE-WORD only to prevent false positives
+        (e.g. "rag" should NOT match "storage").
+
+        Department is NEVER the primary filter when a real query exists.
+        """
         all_courses = self.get_all_courses()
+
+        # No query and no filters → return everything
         if not query_str and not filters:
             return all_courses
 
-        results = []
         query_lower = (query_str or "").lower().strip()
 
+        # Tokenize: keep words >= 2 chars, drop filler words
+        _STOPWORDS = {
+            "for", "and", "the", "with", "to", "in", "of", "a", "an",
+            "is", "on", "at", "by", "as", "or", "i", "me", "my", "am",
+            "want", "need", "show", "find", "best", "good", "top",
+            "course", "courses", "learn", "learning", "study", "how"
+        }
+        tokens = [
+            w for w in re.sub(r"[^a-z0-9 ]", " ", query_lower).split()
+            if len(w) >= 2 and w not in _STOPWORDS
+        ]
+
+        # Pre-compile whole-word patterns for each token (faster than re.search per-course)
+        token_patterns = [re.compile(r"\b" + re.escape(tok) + r"\b") for tok in tokens]
+
+        results = []
+
         for c in all_courses:
-            match = True
-            if query_lower:
-                # Text match title, tags, description, category, skills, technologies
-                searchable_text = " ".join([
-                    c.get("title", ""),
-                    c.get("category", ""),
-                    c.get("department", ""),
-                    c.get("description", ""),
-                    " ".join(c.get("skills", [])),
-                    " ".join(c.get("technologies", [])),
-                    " ".join(c.get("tags", []))
-                ]).lower()
-
-                if query_lower not in searchable_text:
-                    match = False
-
+            # ------- Apply explicit sidebar filters first -------
             if filters:
                 if filters.get("department") and c.get("department") != filters["department"]:
-                    match = False
+                    continue
                 if filters.get("category") and c.get("category") != filters["category"]:
-                    match = False
+                    continue
                 if filters.get("difficulty") and c.get("difficulty") != filters["difficulty"]:
-                    match = False
+                    continue
                 if filters.get("min_rating") and c.get("rating", 0) < float(filters["min_rating"]):
-                    match = False
+                    continue
 
-            if match:
-                results.append(c)
+            # ------- Score the course against the query -------
+            if query_lower:
+                score = 0
 
+                title_lower   = c.get("title", "").lower()
+                techs_lower   = " ".join(c.get("technologies", [])).lower()
+                skills_lower  = " ".join(c.get("skills", [])).lower()
+                tags_lower    = " ".join(c.get("tags", [])).lower()
+                cat_lower     = c.get("category", "").lower()
+                desc_lower    = c.get("description", "").lower()
+                dept_lower    = c.get("department", "").lower()
+
+                # Exact full-phrase bonus.
+                # For short queries (≤4 chars, e.g. "RAG", "NLP") use whole-word
+                # matching to avoid "rag" hitting "storage", "nlp" hitting "help", etc.
+                # For longer phrases (e.g. "machine learning") substring is fine.
+                if len(query_lower) <= 4:
+                    _qpat = re.compile(r"\b" + re.escape(query_lower) + r"\b")
+                    if _qpat.search(title_lower):
+                        score += 150
+                    if _qpat.search(techs_lower):
+                        score += 100
+                    if _qpat.search(skills_lower):
+                        score += 80
+                else:
+                    if query_lower in title_lower:
+                        score += 150
+                    if query_lower in techs_lower:
+                        score += 100
+                    if query_lower in skills_lower:
+                        score += 80
+
+                # Per-token scoring — WHOLE-WORD only to avoid false positives
+                for pat in token_patterns:
+                    if pat.search(title_lower):
+                        score += 80
+                    if pat.search(techs_lower):
+                        score += 100
+                    if pat.search(skills_lower):
+                        score += 80
+                    if pat.search(tags_lower):
+                        score += 60
+                    if pat.search(cat_lower):
+                        score += 50
+                    if pat.search(desc_lower):
+                        score += 30
+                    if pat.search(dept_lower):
+                        score += 20   # lowest weight — secondary personalization only
+
+                # Must have at least one relevant hit to be included
+                if score == 0:
+                    continue
+
+                c = dict(c)
+                c["_search_score"] = score
+            else:
+                c = dict(c)
+                c["_search_score"] = 0
+
+            results.append(c)
+
+        # Sort by relevance score desc, then rating as tiebreaker
+        results.sort(
+            key=lambda x: (x.get("_search_score", 0), x.get("rating", 0)),
+            reverse=True
+        )
         return results
 
 mongodb_service = MongoDBService()

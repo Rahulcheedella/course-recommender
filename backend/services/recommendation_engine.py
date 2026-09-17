@@ -1,4 +1,6 @@
 import logging
+import math
+from datetime import datetime, timezone
 from services.neo4j_service import neo4j_service
 from services.mongodb_service import mongodb_service
 
@@ -41,6 +43,7 @@ class RecommendationEngine:
         graph_reason_map = {item["course_id"]: item["reason"] for item in graph_candidates if "course_id" in item}
 
         all_courses = mongodb_service.get_all_courses()
+        recent_search_scores = self._get_recent_search_scores(user_id, all_courses)
 
         # Check if this department has any courses in the catalog
         dept_course_count = sum(1 for c in all_courses if c.get("department") == user_dept)
@@ -87,15 +90,21 @@ class RecommendationEngine:
                 else:
                     reasons.append(g_reason)
 
-            # 4. Difficulty alignment
+            # 4. Recent search activity, expanded through the existing graph
+            recent_search_score = recent_search_scores.get(cid, 0.0)
+            if recent_search_score:
+                score += recent_search_score
+                reasons.append("Based on your recent search activity")
+
+            # 5. Difficulty alignment
             if course.get("difficulty") == user_experience:
                 score += 10.0
 
-            # 5. Rating & Popularity
+            # 6. Rating & Popularity
             score += float(course.get("rating", 4.5)) * 3.0
             score += min(15.0, (course.get("students", 0) / 10000.0))
 
-            # 6. Penalty for already enrolled
+            # 7. Penalty for already enrolled
             if cid in enrolled_ids:
                 score -= 50.0
 
@@ -176,6 +185,75 @@ class RecommendationEngine:
             "trending_courses": trending_courses,
             "continue_learning": continue_learning
         }
+
+    def _get_recent_search_scores(self, user_id, all_courses):
+        """Return decayed course boosts for recent searches and graph matches."""
+        try:
+            interactions = mongodb_service.get_user_interactions(user_id, limit=20)
+        except Exception:
+            return {}
+
+        now = datetime.now(timezone.utc)
+        search_scores = {}
+
+        for position, event in enumerate(interactions):
+            if event.get("event_type") != "search":
+                continue
+
+            query = (event.get("metadata") or {}).get("query", "").strip()
+            if not query:
+                continue
+
+            timestamp = event.get("timestamp")
+            try:
+                event_time = datetime.fromisoformat(str(timestamp).replace("Z", "+00:00"))
+                if event_time.tzinfo is None:
+                    event_time = event_time.replace(tzinfo=timezone.utc)
+                age_days = max(0.0, (now - event_time).total_seconds() / 86400.0)
+            except (TypeError, ValueError):
+                # Preserve ordering when an older event has no usable timestamp.
+                age_days = float(position)
+
+            recency = math.exp(-age_days / 7.0)
+            try:
+                graph_result = neo4j_service.extract_entities_and_search_graph(query)
+            except Exception:
+                graph_result = {}
+
+            graph_scores = graph_result.get("course_scores", {})
+            entities = graph_result.get("entities", [])
+            query_terms = {
+                term.lower()
+                for term in query.split()
+                if len(term) > 2
+            }
+            query_terms.update(
+                str(entity).lower()
+                for entity in entities
+                if entity
+            )
+
+            for course in all_courses:
+                course_id = course["id"]
+                course_text = " ".join([
+                    course.get("title", ""),
+                    course.get("department", ""),
+                    course.get("category", ""),
+                    " ".join(course.get("technologies", [])),
+                    " ".join(course.get("skills", [])),
+                    " ".join(course.get("tags", []))
+                ]).lower()
+                lexical_matches = sum(1 for term in query_terms if term in course_text)
+                graph_match = float(graph_scores.get(course_id, 0.0))
+
+                if lexical_matches or graph_match:
+                    lexical_boost = min(20.0, lexical_matches * 5.0)
+                    graph_boost = min(30.0, graph_match * 0.3)
+                    search_scores[course_id] = search_scores.get(course_id, 0.0) + (
+                        lexical_boost + graph_boost
+                    ) * recency
+
+        return search_scores
 
     def _get_history_based_recommendations(self, user_id, all_courses, enrolled_ids):
         """

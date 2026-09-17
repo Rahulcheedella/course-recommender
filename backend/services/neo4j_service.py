@@ -811,6 +811,90 @@ class Neo4jService:
 
         return {"nodes": nodes, "edges": edges}
 
+    def search_by_title(self, query_text: str) -> dict:
+        """
+        Direct course-title search in the Knowledge Graph.
+
+        Matches the raw user query against Course nodes by:
+          - Course title       (score 150 — highest priority)
+          - Course category    (score  60)
+          - Course description (score  30)
+
+        Returns the same structure as extract_entities_and_search_graph()
+        so the search route can easily merge the two result sets.
+        """
+        if not query_text or not query_text.strip():
+            return {"matched_course_ids": [], "course_scores": {}}
+
+        term = query_text.strip().lower()
+
+        # Split into individual words so "machine learning" matches
+        # both "machine" and "learning" inside a title independently.
+        words = [w for w in term.split() if len(w) >= 3]
+
+        course_scores: dict = {}
+
+        # --- Title match (150 pts per matching word) ---
+        title_query = """
+        MATCH (c:Course)
+        WHERE toLower(c.title) CONTAINS $term
+        RETURN c.id AS course_id, 150 AS score
+        LIMIT 20
+        """
+        for row in self.execute_query(title_query, {"term": term}):
+            cid = row.get("course_id")
+            if cid:
+                course_scores[cid] = course_scores.get(cid, 0) + 150
+
+        # --- Per-word title match (80 pts each word hit) ---
+        for word in words:
+            word_query = """
+            MATCH (c:Course)
+            WHERE toLower(c.title) CONTAINS $word
+            RETURN c.id AS course_id
+            LIMIT 20
+            """
+            for row in self.execute_query(word_query, {"word": word}):
+                cid = row.get("course_id")
+                if cid:
+                    course_scores[cid] = course_scores.get(cid, 0) + 80
+
+        # --- Category match (60 pts) ---
+        cat_query = """
+        MATCH (c:Course)
+        WHERE toLower(c.category) CONTAINS $term
+        RETURN c.id AS course_id
+        LIMIT 20
+        """
+        for row in self.execute_query(cat_query, {"term": term}):
+            cid = row.get("course_id")
+            if cid:
+                course_scores[cid] = course_scores.get(cid, 0) + 60
+
+        # --- Description keyword match (30 pts per word) ---
+        for word in words:
+            desc_query = """
+            MATCH (c:Course)
+            WHERE toLower(c.description) CONTAINS $word
+            RETURN c.id AS course_id
+            LIMIT 15
+            """
+            for row in self.execute_query(desc_query, {"word": word}):
+                cid = row.get("course_id")
+                if cid:
+                    course_scores[cid] = course_scores.get(cid, 0) + 30
+
+        sorted_ids = sorted(
+            course_scores.keys(),
+            key=lambda cid: course_scores[cid],
+            reverse=True
+        )
+
+        return {
+            "matched_course_ids": sorted_ids,
+            "course_scores": course_scores
+        }
+
     def close(self):
         if self.driver:
             self.driver.close()

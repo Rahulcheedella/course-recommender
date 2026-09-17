@@ -109,7 +109,7 @@ export default function Register() {
                 className="input-field"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                placeholder="e.g. Alex Chen"
+                placeholder="e.g. Rahul"
                 required
               />
             </div>
@@ -121,7 +121,7 @@ export default function Register() {
                 className="input-field"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                placeholder="alex@example.com"
+                placeholder="rahul@example.com"
                 required
               />
             </div>
@@ -136,7 +136,7 @@ export default function Register() {
                 onChange={(e) => setFormData({ ...formData, department: e.target.value })}
               >
                 {departments.map((dept) => (
-                  <option key={dept} value={dept} style={{ background: '#1e293b' }}>{dept}</option>
+                  <option key={dept} value={dept} style={{ background: 'white' }}>{dept}</option>
                 ))}
               </select>
             </div>
@@ -149,7 +149,7 @@ export default function Register() {
                 onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
               >
                 {experienceLevels.map((lvl) => (
-                  <option key={lvl} value={lvl} style={{ background: '#1e293b' }}>{lvl}</option>
+                  <option key={lvl} value={lvl} style={{ background: 'white' }}>{lvl}</option>
                 ))}
               </select>
             </div>

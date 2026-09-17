@@ -75,7 +75,7 @@ export default function CourseCard({ course, showExplanation = true }) {
             width: '32px',
             height: '32px',
             borderRadius: '50%',
-            background: 'rgba(15, 23, 42, 0.75)',
+            background: 'blue',
             border: '1px solid rgba(255, 255, 255, 0.2)',
             display: 'flex',
             alignItems: 'center',

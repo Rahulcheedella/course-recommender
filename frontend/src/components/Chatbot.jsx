@@ -530,7 +530,8 @@ function ChatMessage({ msg }) {
             <div
               style={{
                 fontSize: '0.65rem',
-                color: '#818cf8',
+                color: '#4338ca',
+                fontWeight: 600,
                 marginBottom: '0.25rem',
                 display: 'flex',
                 alignItems: 'center',
@@ -555,13 +556,12 @@ function ChatMessage({ msg }) {
                     key={i}
                     style={{
                       fontSize: '0.65rem',
-                      padding: '0.1rem 0.45rem',
+                      padding: '0.15rem 0.5rem',
                       borderRadius: '8px',
-                      background:
-                        'rgba(99,102,241,0.18)',
-                      border:
-                        '1px solid rgba(99,102,241,0.35)',
-                      color: '#c7d2fe',
+                      background: '#EEF2FF',
+                      border: '1px solid #C7D2FE',
+                      color: '#3730A3',
+                      fontWeight: 600,
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.15rem'
@@ -711,26 +711,23 @@ function ChatMessage({ msg }) {
                   (window.location.href = `/course/${c.id}`)
                 }
                 style={{
-                  background:
-                    'rgba(15,23,42,0.75)',
+                  background: '#ffffff',
                   padding: '0.55rem 0.7rem',
                   borderRadius: '10px',
-                  border:
-                    '1px solid rgba(255,255,255,0.09)',
+                  border: '1px solid #e2e8f0',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.6rem',
                   cursor: 'pointer',
-                  transition:
-                    'border-color 0.15s'
+                  transition: 'border-color 0.15s, box-shadow 0.15s'
                 }}
                 onMouseEnter={e => {
-                  e.currentTarget.style.borderColor =
-                    'rgba(99,102,241,0.45)';
+                  e.currentTarget.style.borderColor = '#818cf8';
+                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(99,102,241,0.15)';
                 }}
                 onMouseLeave={e => {
-                  e.currentTarget.style.borderColor =
-                    'rgba(255,255,255,0.09)';
+                  e.currentTarget.style.borderColor = '#e2e8f0';
+                  e.currentTarget.style.boxShadow = 'none';
                 }}
               >
                 <img
@@ -762,7 +759,7 @@ function ChatMessage({ msg }) {
                     style={{
                       fontSize: '0.78rem',
                       fontWeight: 700,
-                      color: 'white',
+                      color: '#111827',
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
                       whiteSpace: 'nowrap'
@@ -774,7 +771,7 @@ function ChatMessage({ msg }) {
                   <div
                     style={{
                       fontSize: '0.68rem',
-                      color: '#94a3b8'
+                      color: '#64748b'
                     }}
                   >
                     ★ {c.rating} · {c.department} ·{' '}
@@ -785,7 +782,8 @@ function ChatMessage({ msg }) {
                     <div
                       style={{
                         fontSize: '0.62rem',
-                        color: '#818cf8',
+                        color: '#4f46e5',
+                        fontWeight: 600,
                         marginTop: '0.1rem',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
