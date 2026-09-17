@@ -1,5 +1,6 @@
 import logging
 import math
+import re
 from datetime import datetime, timezone
 from services.neo4j_service import neo4j_service
 from services.mongodb_service import mongodb_service
@@ -243,7 +244,11 @@ class RecommendationEngine:
                     " ".join(course.get("skills", [])),
                     " ".join(course.get("tags", []))
                 ]).lower()
-                lexical_matches = sum(1 for term in query_terms if term in course_text)
+                lexical_matches = sum(
+                    1
+                    for term in query_terms
+                    if re.search(r"\b" + re.escape(term) + r"\b", course_text)
+                )
                 graph_match = float(graph_scores.get(course_id, 0.0))
 
                 if lexical_matches or graph_match:
